@@ -1,7 +1,9 @@
 #include <cstdio>
 
+#include "gameState.h"
+
 int main() {
-  std::printf("Hello world");
+  GameState game;
 
   return 1;
 }
