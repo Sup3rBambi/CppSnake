@@ -5,5 +5,8 @@ project(CppSnake VERSION 0.1.0)
 file(GLOB sourceCPP "src/*.cc")
 
 add_executable(CppSnake 
-  ${sourceCPP}
+  # ${sourceCPP}
+  src/main.cc
+  src/gameState.cc
+  src/snake.cc
 )
