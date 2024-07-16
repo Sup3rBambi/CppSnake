@@ -45,6 +45,7 @@ void GameState::GameLoop() {
 void GameState::CleanUp() {
   state = CLEAN_UP;
   isInputNeeded = false;
+  system("stty -raw"); 
 }
 
 void GameState::GetInput(char* input, bool* isInputNeeded) {
