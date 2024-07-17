@@ -35,16 +35,19 @@ void GameState::GameLoop() {
   while (isGameOn) {
     std::this_thread::sleep_for(std::chrono::milliseconds(250));
     CheckCollisions();
-    Display();
     Input();
+    Display();
   }
-
-  this->CleanUp(); 
+  system("clear");
+  printf("Game over\r\n");
+  printf("Score : %d\r\n", (int)snake.GetPositions().size());
+  printf("Press a key to quit\r\n");
 }
 
 void GameState::CleanUp() {
   state = CLEAN_UP;
   isInputNeeded = false;
+  tInput.join();
   system("stty -raw"); 
 }
 
@@ -93,8 +96,6 @@ void GameState::CheckCollisions() {
 
   // }
   if (!snake.GetIsAlive()) {
-    system("clear");
-    printf("Game over");
     isGameOn = false;
   }
 }
