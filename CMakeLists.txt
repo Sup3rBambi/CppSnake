@@ -9,4 +9,5 @@ add_executable(CppSnake
   src/main.cc
   src/gameState.cc
   src/snake.cc
+  src/apple.cc
 )

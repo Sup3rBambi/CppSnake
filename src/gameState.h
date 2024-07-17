@@ -7,6 +7,7 @@
 #include <thread>
 
 #include "snake.h"
+#include "apple.h"
 
 enum State {
   SETUP = 0,
@@ -34,6 +35,7 @@ class GameState {
   int width;
   int height;
   Snake snake;
+  Apple apple;
   bool isInputNeeded = true;
   char input;
   std::thread tInput;

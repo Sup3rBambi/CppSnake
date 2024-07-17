@@ -43,20 +43,23 @@ void Snake::Move() {
   switch (currentDirection) {
     case LEFT:
       body.push_back(std::pair(body.at(body.size() - 1).first - 1, body.at(body.size() - 1).second));
-      body.erase(body.begin());
       break;
     case RIGHT:
       body.push_back(std::pair(body.at(body.size() - 1).first + 1, body.at(body.size() - 1).second));
-      body.erase(body.begin());
       break;
     case UP:
       body.push_back(std::pair(body.at(body.size() - 1).first, body.at(body.size() - 1).second - 1));
-      body.erase(body.begin());
       break;
     case DOWN:
       body.push_back(std::pair(body.at(body.size() - 1).first, body.at(body.size() - 1).second + 1));
-      body.erase(body.begin());
       break;
+  }
+  if (!fHasEaten)
+    body.erase(body.begin());
+  fHasEaten = false;
+  for (int i = 0; i < body.size() - 1; i++) {
+    if (body[i].first == body.back().first && body[i].second == body.back().second)
+      isAlive = false;
   }
 }
 

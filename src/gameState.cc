@@ -6,9 +6,10 @@
 
 #include "gameState.h"
 #include "snake.h"
+#include "apple.h"
 
 GameState::GameState() 
-    : width(50), height(10) {
+    : width(50), height(10), snake(), apple(snake) {
 
   system("stty raw"); 
   tInput = std::thread(GameState::GetInput, &input, &isInputNeeded);
@@ -32,11 +33,10 @@ void GameState::GameLoop() {
   isGameOn = true;
   state = GAME_LOOP;
   while (isGameOn) {
-    // CheckCollisions();
+    std::this_thread::sleep_for(std::chrono::milliseconds(250));
+    CheckCollisions();
     Display();
     Input();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
   }
 
   this->CleanUp(); 
@@ -80,7 +80,10 @@ void GameState::Input() {
 }
 
 void GameState::CheckCollisions() {
-  // if (snake.GetPositions().back()) {
+  if (snake.GetPositions().back().first == apple.GetX() && snake.GetPositions().back().second == apple.GetY()) {
+    snake.fHasEaten = true;
+    apple.ChangePos();
+  }
 
   // } else if (snake.GetPositions().back()) {
 
@@ -89,19 +92,27 @@ void GameState::CheckCollisions() {
   // } else if (snake.GetPositions().back()) {
 
   // }
+  if (!snake.GetIsAlive()) {
+    system("clear");
+    printf("Game over");
+    isGameOn = false;
+  }
 }
 
 void GameState::Display() {
   system("clear");
   char display[width * height];
   std::fill_n(display, width * height, '.');
+  display[apple.GetY() * width + apple.GetX()] = '*'; 
   for (auto pos : snake.GetPositions()){
     display[pos.second * width + pos.first] = '#';
   }  
+  display[snake.GetPositions().back().second * width + snake.GetPositions().back().first] = '@';
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
       printf("%c", display[y * width + x]);
     }
     printf("\r\n");
   }
+  printf("Score : %d\r\n", (int)snake.GetPositions().size());
 }

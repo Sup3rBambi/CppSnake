@@ -28,7 +28,9 @@ class Snake {
   void Eat();
 
   inline std::vector<std::pair<int, int>> GetPositions() { return body; }
+  inline bool GetIsAlive() { return isAlive; }
  private:
   std::vector<std::pair<int, int>> body;
   Direction currentDirection;
+  bool isAlive = true;
 };
