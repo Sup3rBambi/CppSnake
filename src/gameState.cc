@@ -1,8 +1,6 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include <termios.h>
-#include <unistd.h>
 
 #include "gameState.h"
 #include "snake.h"
@@ -13,9 +11,6 @@ GameState::GameState()
 
   system("stty raw"); 
   tInput = std::thread(GameState::GetInput, &input, &isInputNeeded);
-  //setting console raw mode
-  // struct termios* termios_p;
-  // cfmakeraw(termios_p);
 
   this->Setup(); 
   this->GameLoop();
@@ -87,8 +82,7 @@ void GameState::CheckCollisions() {
     snake.fHasEaten = true;
     apple.ChangePos();
   }
-
-  // } else if (snake.GetPositions().back()) {
+  // if (snake.GetPositions().back() == std::pair<int, int>()) {
 
   // } else if (snake.GetPositions().back()) {
 

@@ -25,7 +25,6 @@ class Snake {
   void Up();
   void Down();
   void Move();
-  void Eat();
 
   inline std::vector<std::pair<int, int>> GetPositions() { return body; }
   inline bool GetIsAlive() { return isAlive; }
